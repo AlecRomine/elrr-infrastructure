@@ -30,8 +30,8 @@ data "aws_availability_zones" "elrr-azs" {
   state    = "available"
 }
 
-# Create route table in us-east-2
-resource "aws_route_table" "elrr_route_table" {
+# Create public route table in us-east-2
+resource "aws_route_table" "elrr_public_route_table" {
   provider = aws
   vpc_id   = aws_vpc.elrr_vpc.id
   route {
@@ -39,103 +39,91 @@ resource "aws_route_table" "elrr_route_table" {
     gateway_id = aws_internet_gateway.elrr_igw.id
   }
   tags = {
-    Name = "elrr_route_table"
+    Name = "elrr_public_route_table"
   }
 }
 
+# Create private route table in us-east-2
+resource "aws_route_table" "elrr_private_route_table" {
+  provider = aws
+  vpc_id   = aws_vpc.elrr_vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.elrr_igw.id
+  }
+  tags = {
+    Name = "elrr_private_route_table"
+  }
+}
+
+resource "aws_nat_gateway" "elrr_nat_gateway" {
+  subnet_id     = aws_subnet.elrr_private_subnet_1.id
+
+  tags = {
+    Name = "elrr_nat_gateway1"
+  }
+
+  # To ensure proper ordering, it is recommended to add an explicit dependency
+  # on the Internet Gateway for the VPC.
+  depends_on = [aws_internet_gateway.elrr_igw]
+}
+
+resource "aws_nat_gateway" "elrr_nat_gateway" {
+  subnet_id     = aws_subnet.elrr_private_subnet_2.id
+
+  tags = {
+    Name = "elrr_nat_gateway2"
+  }
+
+  # To ensure proper ordering, it is recommended to add an explicit dependency
+  # on the Internet Gateway for the VPC.
+  depends_on = [aws_internet_gateway.elrr_igw]
+}
+
 # Create subnet in us-east-2
-resource "aws_subnet" "elrr_xapi_gateway_subnet" {
+resource "aws_subnet" "elrr_public_subnet_1" {
   provider          = aws
   availability_zone = element(data.aws_availability_zones.elrr-azs.names, 0)
   vpc_id            = aws_vpc.elrr_vpc.id
   cidr_block        = "10.0.6.0/24"
 
   tags = {
-    Name = "elrr_xapi_gateway_subnet"
+    Name = "elrr_public_subnet_1"
   }
 }
 
-
 # Create subnet in us-east-2
-resource "aws_subnet" "elrr_storage_subnet" {
+resource "aws_subnet" "elrr_public_subnet_2" {
   provider          = aws
+  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 0)
   vpc_id            = aws_vpc.elrr_vpc.id
-  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 1)
   cidr_block        = "10.0.8.0/24"
 
   tags = {
-    Name = "elrr_storage_subnet"
+    Name = "elrr_public_subnet_2"
   }
 }
 
 # Create subnet in us-east-2
-resource "aws_subnet" "elrr_local_staging_subnet" {
+resource "aws_subnet" "elrr_private_subnet_1" {
   provider          = aws
+  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 0)
   vpc_id            = aws_vpc.elrr_vpc.id
-  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 1)
   cidr_block        = "10.0.2.0/24"
 
   tags = {
-    Name = "elrr_local_staging_subnet"
+    Name = "elrr_private_subnet_1"
   }
 }
 
 # Create subnet in us-east-2
-resource "aws_subnet" "elrr_auth_subnet" {
+resource "aws_subnet" "elrr_private_subnet_2" {
   provider          = aws
+  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 0)
   vpc_id            = aws_vpc.elrr_vpc.id
-  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 1)
   cidr_block        = "10.0.12.0/24"
 
   tags = {
-    Name = "elrr_auth_subnet"
-  }
-}
-
-# Create subnet in us-east-2
-resource "aws_subnet" "elrr_portal_subnet" {
-  provider          = aws
-  vpc_id            = aws_vpc.elrr_vpc.id
-  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 1)
-  cidr_block        = "10.0.16.0/24"
-
-  tags = {
-    Name = "elrr_portal_subnet"
-  }
-}
-
-# Create elrr kafka subnet in us-east-2
-resource "aws_subnet" "elrr_kafka_subnet" {
-  provider          = aws
-  vpc_id            = aws_vpc.elrr_vpc.id
-  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 1)
-  cidr_block        = "10.0.20.0/24"
-
-  tags = {
-    Name = "elrr_kafka_subnet"
-  }
-}
-
-# Create elrr agent subnet in us-east-2
-resource "aws_subnet" "elrr_agent_subnet" {
-  provider          = aws
-  vpc_id            = aws_vpc.elrr_vpc.id
-  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 1)
-  cidr_block        = "10.0.24.0/24"
-
-  tags = {
-    Name = "elrr_agent_subnet"
-  }
-}
-
-# Create elrr agent subnet in us-east-2
-resource "aws_subnet" "elrr_datasim_subnet" {
-  provider          = aws
-  vpc_id            = aws_vpc.elrr_vpc.id
-  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 1)
-  cidr_block        = "10.0.28.0/24"
-
-  tags = {
-    Name = "elrr_datasim_subnet"
+    Name = "elrr_private_subnet_2"
   }
 }

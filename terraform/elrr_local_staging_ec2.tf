@@ -5,7 +5,7 @@ resource "aws_instance" "elrr_local_staging" {
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
-  subnet_id = aws_subnet.elrr_local_staging_subnet.id
+  subnet_id = aws_subnet.elrr_private_subnet_2.id
 
   tags = {
     Name = "elrr_local_staging"
@@ -31,7 +31,7 @@ resource "aws_instance" "elrr_local_staging" {
 }
 
 resource "aws_network_interface" "elrr_local_staging_interface" {
-  subnet_id   = aws_subnet.elrr_local_staging_subnet.id
+  subnet_id   = aws_subnet.elrr_private_subnet_2.id
 
   tags = {
     Name = "elrr_local_staging_interface"

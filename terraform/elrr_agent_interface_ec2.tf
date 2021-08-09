@@ -5,7 +5,7 @@ resource "aws_instance" "elrr_agent1" {
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
-  subnet_id = aws_subnet.elrr_agent_subnet.id
+  subnet_id = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
     Name = "elrr_agent1"
@@ -31,7 +31,7 @@ resource "aws_instance" "elrr_agent1" {
 }
 
 resource "aws_network_interface" "elrr_agent1_interface" {
-  subnet_id   = aws_subnet.elrr_agent_subnet.id
+  subnet_id   = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
     Name = "elrr_agent1_interface"
@@ -45,7 +45,7 @@ resource "aws_instance" "elrr_agent2" {
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
-  subnet_id = aws_subnet.elrr_agent_subnet.id
+  subnet_id = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
     Name = "elrr_agent2"
@@ -71,7 +71,7 @@ resource "aws_instance" "elrr_agent2" {
 }
 
 resource "aws_network_interface" "elrr_agent2_interface" {
-  subnet_id   = aws_subnet.elrr_agent_subnet.id
+  subnet_id   = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
     Name = "elrr_agent2_interface"
@@ -85,7 +85,7 @@ resource "aws_instance" "elrr_agent3" {
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
-  subnet_id = aws_subnet.elrr_agent_subnet.id
+  subnet_id = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
     Name = "elrr_agent3"
@@ -111,7 +111,7 @@ resource "aws_instance" "elrr_agent3" {
 }
 
 resource "aws_network_interface" "elrr_agent3_interface" {
-  subnet_id   = aws_subnet.elrr_agent_subnet.id
+  subnet_id   = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
     Name = "elrr_agent3_interface"
@@ -125,7 +125,7 @@ resource "aws_instance" "elrr_agent4" {
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
-  subnet_id = aws_subnet.elrr_agent_subnet.id
+  subnet_id = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
     Name = "elrr_agent4"
@@ -150,7 +150,7 @@ resource "aws_instance" "elrr_agent4" {
 }
 
 resource "aws_network_interface" "elrr_agent4_interface" {
-  subnet_id   = aws_subnet.elrr_agent_subnet.id
+  subnet_id   = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
     Name = "elrr_agent4_interface"

@@ -5,7 +5,7 @@ resource "aws_instance" "elrr_datasim" {
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.small"
   associate_public_ip_address = true
-  subnet_id = aws_subnet.elrr_datasim_subnet.id
+  subnet_id = aws_subnet.elrr_public_subnet_2.id
 
   tags = {
     Name = "elrr_datasim"
@@ -31,7 +31,7 @@ resource "aws_instance" "elrr_datasim" {
 }
 
 resource "aws_network_interface" "elrr_datasim_interface" {
-  subnet_id   = aws_subnet.elrr_datasim_subnet.id
+  subnet_id   = aws_subnet.elrr_public_subnet_2.id
 
   tags = {
     Name = "elrr_datasim_interface"
