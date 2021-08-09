@@ -30,7 +30,7 @@ resource "aws_instance" "elrr_datasim" {
   user_data = file("user_data/elrr_datasim.txt")
 }
 
-resource "aws_network_interface" "elrr_local_staging_interface" {
+resource "aws_network_interface" "elrr_datasim_interface" {
   subnet_id   = aws_subnet.elrr_datasim_subnet.id
 
   tags = {
