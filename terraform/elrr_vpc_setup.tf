@@ -58,10 +58,14 @@ resource "aws_route_table" "elrr_private_route_table" {
 
 resource "aws_eip" "elrr_nat_gw_eip1" {
   vpc      = true
+
+  tags     = "elrr_nat_gw_eip1"
 }
 
 resource "aws_eip" "elrr_nat_gw_eip2" {
   vpc      = true
+
+  tags     = "elrr_nat_gw_eip2"
 }
 
 resource "aws_nat_gateway" "elrr_nat_gateway1" {
