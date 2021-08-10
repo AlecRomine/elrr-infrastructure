@@ -311,11 +311,7 @@ resource "aws_security_group" "elrr_agent_sg" {
   }
 }
 
-<<<<<<< HEAD
 # security group to allow inbound on port 9091, 443 for ELRR datasim
-=======
-# security group to allow inbound on port 9091, 443 for ELRR agent
->>>>>>> 5ece7e01f1f39fa344403095206ed6b37ff1e231
 resource "aws_security_group" "elrr_datasim_sg" {
   name        = "elrr_datasim_sg"
   description = "Allow datasim communication"
@@ -348,7 +344,6 @@ resource "aws_security_group" "elrr_datasim_sg" {
     Name = "elrr_datasim_sg"
   }
 }
-<<<<<<< HEAD
 
 # security group to allow inbound on port 9091, 443 for kubernetes
 resource "aws_security_group" "elrr_k8_sg" {
@@ -391,5 +386,3 @@ resource "aws_security_group" "elrr_k8_sg" {
     Name = "elrr_k8_sg"
   }
 }
-=======
->>>>>>> 5ece7e01f1f39fa344403095206ed6b37ff1e231
