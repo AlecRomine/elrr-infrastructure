@@ -56,7 +56,7 @@ resource "aws_route_table" "elrr_private_route_table" {
   }
 }
 
-resource "aws_nat_gateway" "elrr_nat_gateway" {
+resource "aws_nat_gateway" "elrr_nat_gateway1" {
   subnet_id     = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
@@ -68,7 +68,7 @@ resource "aws_nat_gateway" "elrr_nat_gateway" {
   depends_on = [aws_internet_gateway.elrr_igw]
 }
 
-resource "aws_nat_gateway" "elrr_nat_gateway" {
+resource "aws_nat_gateway" "elrr_nat_gateway2" {
   subnet_id     = aws_subnet.elrr_private_subnet_2.id
 
   tags = {
