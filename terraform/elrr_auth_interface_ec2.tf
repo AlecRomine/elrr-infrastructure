@@ -5,7 +5,7 @@ resource "aws_instance" "elrr_auth" {
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
-  subnet_id = aws_subnet.elrr_auth_subnet.id
+  subnet_id = aws_subnet.elrr_public_subnet_1.id
 
   tags = {
     Name = "elrr_auth"
@@ -31,7 +31,7 @@ resource "aws_instance" "elrr_auth" {
 }
 
 resource "aws_network_interface" "elrr_auth_interface" {
-  subnet_id   = aws_subnet.elrr_auth_subnet.id
+  subnet_id   = aws_subnet.elrr_public_subnet_1.id
 
   tags = {
     Name = "elrr_auth_interface"

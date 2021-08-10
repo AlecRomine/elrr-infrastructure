@@ -5,7 +5,7 @@ resource "aws_instance" "elrr_kafka" {
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
-  subnet_id = aws_subnet.elrr_kafka_subnet.id
+  subnet_id = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
     Name = "elrr_kafka"
@@ -30,7 +30,7 @@ resource "aws_instance" "elrr_kafka" {
 }
 
 resource "aws_network_interface" "elrr_kafka_interface" {
-  subnet_id   = aws_subnet.elrr_kafka_subnet.id
+  subnet_id   = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
     Name = "elrr_kafka_interface"
@@ -44,7 +44,7 @@ resource "aws_instance" "elrr_zookeeper" {
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
-  subnet_id = aws_subnet.elrr_kafka_subnet.id
+  subnet_id = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
     Name = "elrr_zookeeper"
@@ -70,7 +70,7 @@ resource "aws_instance" "elrr_zookeeper" {
 }
 
 resource "aws_network_interface" "elrr_zookeeper_interface" {
-  subnet_id   = aws_subnet.elrr_kafka_subnet.id
+  subnet_id   = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
     Name = "elrr_zookeeper_interface"
