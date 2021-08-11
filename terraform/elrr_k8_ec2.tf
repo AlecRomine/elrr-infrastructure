@@ -1,7 +1,7 @@
 # creates EC2 instance for kubernetes master
 
 resource "aws_instance" "elrr_k8_master" {
-  key_name      = aws_key_pair.elrr_public_kp.key_name
+  key_name      = aws_key_pair.elrr_public.key_name
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
@@ -39,7 +39,7 @@ resource "aws_network_interface" "elrr_k8_master_interface" {
 # creates EC2 instance for kubernetes node 1
 
 resource "aws_instance" "elrr_k8_node1" {
-  key_name      = aws_key_pair.elrr_public_kp.key_name
+  key_name      = aws_key_pair.elrr_public.key_name
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
@@ -77,7 +77,7 @@ resource "aws_network_interface" "elrr_k8_node1_interface" {
 # creates EC2 instance for kubernetes node 2
 
 resource "aws_instance" "elrr_k8_node2" {
-  key_name      = aws_key_pair.elrr_public_kp.key_name
+  key_name      = aws_key_pair.elrr_public.key_name
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
@@ -115,7 +115,7 @@ resource "aws_network_interface" "elrr_k8_node2_interface" {
 # creates EC2 instance for kubenetes node3
 
 resource "aws_instance" "elrr_k8_node3" {
-  key_name      = aws_key_pair.elrr_public_kp.key_name
+  key_name      = aws_key_pair.elrr_public.key_name
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true

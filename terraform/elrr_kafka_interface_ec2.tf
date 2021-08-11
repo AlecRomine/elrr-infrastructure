@@ -1,7 +1,7 @@
 # creates EC2 instance for the ELRR kafka
 
 resource "aws_instance" "elrr_kafka" {
-  key_name      = aws_key_pair.elrr_private_kp.key_name
+  key_name      = aws_key_pair.elrr_private.key_name
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
@@ -40,7 +40,7 @@ resource "aws_network_interface" "elrr_kafka_interface" {
 # creates EC2 instance for the ELRR zookeeper
 
 resource "aws_instance" "elrr_zookeeper" {
-  key_name      = aws_key_pair.elrr_private_kp.key_name
+  key_name      = aws_key_pair.elrr_private.key_name
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true

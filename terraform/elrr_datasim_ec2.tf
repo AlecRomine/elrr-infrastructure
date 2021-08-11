@@ -1,7 +1,7 @@
 # creates EC2 instance for the ELRR Local Staging Component
 
 resource "aws_instance" "elrr_datasim" {
-  key_name      = aws_key_pair.elrr_public_kp.key_name
+  key_name      = aws_key_pair.elrr_public.key_name
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.small"
   associate_public_ip_address = true

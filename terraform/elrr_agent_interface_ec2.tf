@@ -1,7 +1,7 @@
 # creates EC2 instance for the ELRR agent
 
 resource "aws_instance" "elrr_agent1" {
-  key_name      = aws_key_pair.elrr_private_kp.key_name
+  key_name      = aws_key_pair.elrr_private.key_name
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
@@ -41,7 +41,7 @@ resource "aws_network_interface" "elrr_agent1_interface" {
 # creates EC2 instance for the ELRR agent 2
 
 resource "aws_instance" "elrr_agent2" {
-  key_name      = aws_key_pair.elrr_private_kp.key_name
+  key_name      = aws_key_pair.elrr_private.key_name
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
@@ -81,7 +81,7 @@ resource "aws_network_interface" "elrr_agent2_interface" {
 # creates EC2 instance for the ELRR agent 3
 
 resource "aws_instance" "elrr_agent3" {
-  key_name      = aws_key_pair.elrr_private_kp.key_name
+  key_name      = aws_key_pair.elrr_private.key_name
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
@@ -121,7 +121,7 @@ resource "aws_network_interface" "elrr_agent3_interface" {
 # creates EC2 instance for the ELRR agent 4
 
 resource "aws_instance" "elrr_agent4" {
-  key_name      = aws_key_pair.elrr_private_kp.key_name
+  key_name      = aws_key_pair.elrr_private.key_name
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
   associate_public_ip_address = true
