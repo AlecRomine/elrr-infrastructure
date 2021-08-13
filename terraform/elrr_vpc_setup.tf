@@ -113,7 +113,7 @@ resource "aws_subnet" "elrr_public_subnet_1" {
 # Create subnet in us-east-2
 resource "aws_subnet" "elrr_public_subnet_2" {
   provider          = aws
-  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 0)
+  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 1)
   vpc_id            = aws_vpc.elrr_vpc.id
   cidr_block        = "10.0.8.0/24"
 
@@ -125,7 +125,7 @@ resource "aws_subnet" "elrr_public_subnet_2" {
 # Create subnet in us-east-2
 resource "aws_subnet" "elrr_private_subnet_1" {
   provider          = aws
-  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 0)
+  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 2)
   vpc_id            = aws_vpc.elrr_vpc.id
   cidr_block        = "10.0.2.0/24"
 
@@ -137,7 +137,7 @@ resource "aws_subnet" "elrr_private_subnet_1" {
 # Create subnet in us-east-2
 resource "aws_subnet" "elrr_private_subnet_2" {
   provider          = aws
-  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 0)
+  availability_zone = element(data.aws_availability_zones.elrr-azs.names, 3)
   vpc_id            = aws_vpc.elrr_vpc.id
   cidr_block        = "10.0.12.0/24"
 

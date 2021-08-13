@@ -386,3 +386,45 @@ resource "aws_security_group" "elrr_k8_sg" {
     Name = "elrr_k8_sg"
   }
 }
+
+# security group to allow inbound on port 9091, 443 for Jenkins
+resource "aws_security_group" "elrr_jenkins_sg" {
+  name        = "elrr_jenkins_sg"
+  description = "Allow jenkins communication"
+  vpc_id      = aws_vpc.elrr_vpc.id
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
+  }
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 8083
+    to_port     = 8083
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
+  }
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "elrr_jenkins_sg"
+  }
+}
