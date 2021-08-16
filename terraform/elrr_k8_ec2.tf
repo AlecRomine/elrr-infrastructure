@@ -149,3 +149,13 @@ resource "aws_network_interface" "elrr_k8_node3_interface" {
     Name = "elrr_k8_node3_interface"
   }
 }
+
+resource "aws_eip" "elrr_k8_master_eip" {
+  instance = aws_instance.elrr_k8_master.id
+  vpc      = true
+}
+
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = aws_instance.elrr_k8_master.id
+  allocation_id = aws_eip.elrr_k8_master_eip.id
+}
