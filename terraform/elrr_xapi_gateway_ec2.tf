@@ -43,7 +43,7 @@ resource "aws_eip" "elrr_xapi_gw_eip" {
   vpc      = true
 }
 
-resource "aws_eip_association" "eip_assoc" {
+resource "aws_eip_association" "eip_assoc_xapi" {
   instance_id   = aws_instance.elrr_xapi_gateway.id
   allocation_id = aws_eip.elrr_xapi_gw_eip.id
 }

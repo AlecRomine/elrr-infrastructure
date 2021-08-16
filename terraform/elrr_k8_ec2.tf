@@ -155,7 +155,7 @@ resource "aws_eip" "elrr_k8_master_eip" {
   vpc      = true
 }
 
-resource "aws_eip_association" "eip_assoc" {
+resource "aws_eip_association" "eip_assoc_k8" {
   instance_id   = aws_instance.elrr_k8_master.id
   allocation_id = aws_eip.elrr_k8_master_eip.id
 }
