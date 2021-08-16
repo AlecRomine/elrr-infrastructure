@@ -33,24 +33,16 @@ resource "aws_security_group" "elrr_xapi_gw_sg" {
   }
 }
 
-# security group to allow inbound on port 5453 & 443 for ELRR Storage
-resource "aws_security_group" "elrr_storage_sg" {
-  name        = "elrr_storage_sg"
-  description = "Allow MySQL connectivity"
+# security group to allow SSH inbound connection
+resource "aws_security_group" "elrr_xapi_gw_ssh_sg" {
+  name        = "elrr_xapi_gw_ssh_sg"
+  description = "Allow TLS inbound traffic on port 22"
   vpc_id      = aws_vpc.elrr_vpc.id
 
   ingress {
     description = "TLS from VPC"
-    from_port   = 5453
-    to_port     = 5453
-    protocol    = "tcp"
-    cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
-  }
-
-  ingress {
-    description = "TLS from VPC"
-    from_port   = 443
-    to_port     = 443
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
     cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
   }
@@ -63,14 +55,14 @@ resource "aws_security_group" "elrr_storage_sg" {
   }
 
   tags = {
-    Name = "elrr_storage_sg"
+    Name = "elrr_xapi_gw_ssh_sg"
   }
 }
 
-# security group to allow inbound on port 5453 & 443 for ELRR
-resource "aws_security_group" "elrr_local_staging_sg" {
-  name        = "elrr_local_staging_sg"
-  description = "Allow MySQL connectivity"
+# security group to allow inbound on port 5453 & 443 for ELRR Storage
+resource "aws_security_group" "elrr_database_sg" {
+  name        = "elrr_storage_sg"
+  description = "Allow Postgres connectivity"
   vpc_id      = aws_vpc.elrr_vpc.id
 
   ingress {
@@ -97,7 +89,33 @@ resource "aws_security_group" "elrr_local_staging_sg" {
   }
 
   tags = {
-    Name = "elrr_local_staging_sg"
+    Name = "elrr_database_sg"
+  }
+}
+
+# security group to allow SSH inbound connection
+resource "aws_security_group" "elrr_database_ssh_sg" {
+  name        = "elrr_database_ssh_sg"
+  description = "Allow TLS inbound traffic on port 22"
+  vpc_id      = aws_vpc.elrr_vpc.id
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "elrr_database_ssh_sg"
   }
 }
 
@@ -143,6 +161,32 @@ resource "aws_security_group" "elrr_auth_sg" {
   }
 }
 
+# security group to allow SSH inbound connection
+resource "aws_security_group" "elrr_auth_ssh_sg" {
+  name        = "elrr_auth_ssh_sg"
+  description = "Allow TLS inbound traffic on port 22"
+  vpc_id      = aws_vpc.elrr_vpc.id
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "elrr_auth_ssh_sg"
+  }
+}
+
 # security group to allow inbound on port 5453 & 443 for ELRR portal
 resource "aws_security_group" "elrr_portal_sg" {
   name        = "elrr_portal_sg"
@@ -182,6 +226,32 @@ resource "aws_security_group" "elrr_portal_sg" {
 
   tags = {
     Name = "elrr_portal_sg"
+  }
+}
+
+# security group to allow SSH inbound connection
+resource "aws_security_group" "elrr_portal_ssh_sg" {
+  name        = "elrr_portal_ssh_sg"
+  description = "Allow TLS inbound traffic on port 22"
+  vpc_id      = aws_vpc.elrr_vpc.id
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "elrr_portal_ssh_sg"
   }
 }
 
@@ -227,32 +297,16 @@ resource "aws_security_group" "elrr_kafka_sg" {
   }
 }
 
-# security group to allow inbound on port 9092, 2181, 2888 for ELRR zookeeper
-resource "aws_security_group" "elrr_zookeeper_sg" {
-  name        = "elrr_zookeeper_sg"
-  description = "Allow kafka and zookeeper communication"
+# security group to allow SSH inbound connection
+resource "aws_security_group" "elrr_kafka_ssh_sg" {
+  name        = "elrr_kafka_ssh_sg"
+  description = "Allow TLS inbound traffic on port 22"
   vpc_id      = aws_vpc.elrr_vpc.id
 
   ingress {
     description = "TLS from VPC"
-    from_port   = 2181
-    to_port     = 2181
-    protocol    = "tcp"
-    cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
-  }
-
-  ingress {
-    description = "TLS from VPC"
-    from_port   = 9092
-    to_port     = 9092
-    protocol    = "tcp"
-    cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
-  }
-
-  ingress {
-    description = "TLS from VPC"
-    from_port   = 2888
-    to_port     = 2888
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
     cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
   }
@@ -265,14 +319,14 @@ resource "aws_security_group" "elrr_zookeeper_sg" {
   }
 
   tags = {
-    Name = "elrr_zookeeper_sg"
+    Name = "elrr_kafka_ssh_sg"
   }
 }
 
 # security group to allow inbound on port 9092, 5432, 443 for ELRR agent
 resource "aws_security_group" "elrr_agent_sg" {
   name        = "elrr_agent_sg"
-  description = "Allow kafka and zookeeper communication"
+  description = "Allow elrr agent communication"
   vpc_id      = aws_vpc.elrr_vpc.id
 
   ingress {
@@ -311,6 +365,32 @@ resource "aws_security_group" "elrr_agent_sg" {
   }
 }
 
+# security group to allow SSH inbound connection
+resource "aws_security_group" "elrr_agent_ssh_sg" {
+  name        = "elrr_agent_ssh_sg"
+  description = "Allow TLS inbound traffic on port 22"
+  vpc_id      = aws_vpc.elrr_vpc.id
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "elrr_agent_ssh_sg"
+  }
+}
+
 # security group to allow inbound on port 9091, 443 for ELRR datasim
 resource "aws_security_group" "elrr_datasim_sg" {
   name        = "elrr_datasim_sg"
@@ -342,6 +422,32 @@ resource "aws_security_group" "elrr_datasim_sg" {
 
   tags = {
     Name = "elrr_datasim_sg"
+  }
+}
+
+# security group to allow SSH inbound connection
+resource "aws_security_group" "elrr_datasim_ssh_sg" {
+  name        = "elrr_datasim_ssh_sg"
+  description = "Allow TLS inbound traffic on port 22"
+  vpc_id      = aws_vpc.elrr_vpc.id
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "elrr_datasim_ssh_sg"
   }
 }
 
@@ -387,6 +493,32 @@ resource "aws_security_group" "elrr_k8_sg" {
   }
 }
 
+# security group to allow SSH inbound connection
+resource "aws_security_group" "elrr_k8_ssh_sg" {
+  name        = "elrr_k8_ssh_sg"
+  description = "Allow TLS inbound traffic on port 22"
+  vpc_id      = aws_vpc.elrr_vpc.id
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "elrr_k8_ssh_sg"
+  }
+}
+
 # security group to allow inbound on port 9091, 443 for Jenkins
 resource "aws_security_group" "elrr_jenkins_sg" {
   name        = "elrr_jenkins_sg"
@@ -426,5 +558,31 @@ resource "aws_security_group" "elrr_jenkins_sg" {
 
   tags = {
     Name = "elrr_jenkins_sg"
+  }
+}
+
+# security group to allow SSH inbound connection
+resource "aws_security_group" "elrr_jenkins_ssh_sg" {
+  name        = "elrr_jenkins_ssh_sg"
+  description = "Allow TLS inbound traffic on port 22"
+  vpc_id      = aws_vpc.elrr_vpc.id
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "elrr_jenkins_ssh_sg"
   }
 }

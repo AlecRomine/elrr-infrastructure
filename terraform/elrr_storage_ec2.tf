@@ -12,7 +12,7 @@ resource "aws_instance" "elrr_storage" {
   }
 
   vpc_security_group_ids = [
-    aws_security_group.elrr_storage_sg.id
+    aws_security_group.elrr_database_sg.id
   ]
 
   connection {

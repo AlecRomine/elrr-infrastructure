@@ -51,7 +51,7 @@ resource "aws_instance" "elrr_zookeeper" {
   }
 
   vpc_security_group_ids = [
-    aws_security_group.elrr_zookeeper_sg.id
+    aws_security_group.elrr_kafka_sg.id
   ]
 
   connection {

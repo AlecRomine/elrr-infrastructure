@@ -43,16 +43,29 @@ resource "aws_route_table" "elrr_public_route_table" {
   }
 }
 
-# Create private route table in us-east-2
-resource "aws_route_table" "elrr_private_route_table" {
+# Create private route table 1 in us-east-2
+resource "aws_route_table" "elrr_private_route_table1" {
   provider = aws
   vpc_id   = aws_vpc.elrr_vpc.id
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.elrr_igw.id
+    nat_gateway_id = aws_nat_gateway.elrr_nat_gateway1.id
   }
   tags = {
-    Name = "elrr_private_route_table"
+    Name = "elrr_private_route_table1"
+  }
+}
+
+# Create private route table 2 in us-east-2
+resource "aws_route_table" "elrr_private_route_table2" {
+  provider = aws
+  vpc_id   = aws_vpc.elrr_vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.elrr_nat_gateway2.id
+  }
+  tags = {
+    Name = "elrr_private_route_table2"
   }
 }
 
