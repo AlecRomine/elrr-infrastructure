@@ -51,32 +51,36 @@ resource "aws_route_table" "elrr_private_route_table1" {
     cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.elrr_nat_gateway1.id
   }
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.elrr_nat_gateway2.id
+  }
   tags = {
     Name = "elrr_private_route_table1"
   }
 }
 
 # Create private route table 2 in us-east-2
-resource "aws_route_table" "elrr_private_route_table2" {
-  provider = aws
-  vpc_id   = aws_vpc.elrr_vpc.id
-  route {
-    cidr_block = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.elrr_nat_gateway2.id
-  }
-  tags = {
-    Name = "elrr_private_route_table2"
-  }
-}
+#resource "aws_route_table" "elrr_private_route_table2" {
+#  provider = aws
+#  vpc_id   = aws_vpc.elrr_vpc.id
+#  route {
+#    cidr_block = "0.0.0.0/0"
+#    nat_gateway_id = aws_nat_gateway.elrr_nat_gateway2.id
+#  }
+#  tags = {
+#    Name = "elrr_private_route_table2"
+#  }
+#}
 
 resource "aws_route_table_association" "elrr_private_rt1" {
   subnet_id      = aws_subnet.elrr_private_subnet_1.id
-  route_table_id = aws_route_table.elrr_private_route_table1.id
+  route_table_id = aws_route_table.elrr_private_route_table.id
 }
 
 resource "aws_route_table_association" "elrr_private_rt2" {
   subnet_id      = aws_subnet.elrr_private_subnet_2.id
-  route_table_id = aws_route_table.elrr_private_route_table2.id
+  route_table_id = aws_route_table.elrr_private_route_table.id
 }
 
 resource "aws_eip" "elrr_nat_gw_eip1" {
