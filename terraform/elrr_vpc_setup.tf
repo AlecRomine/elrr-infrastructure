@@ -167,7 +167,7 @@ resource "aws_subnet" "elrr_private_subnet_1" {
   }
 }
 
- Create subnet in us-east-2
+# Create subnet in us-east-2
 resource "aws_subnet" "elrr_private_subnet_2" {
   provider          = aws
   availability_zone = element(data.aws_availability_zones.elrr-azs.names, 3)
