@@ -44,7 +44,7 @@ resource "aws_route_table" "elrr_public_route_table" {
 }
 
 # Create private route table 1 in us-east-2
-resource "aws_route_table" "elrr_private_route_table1" {
+resource "aws_route_table" "elrr_private_route_table" {
   provider = aws
   vpc_id   = aws_vpc.elrr_vpc.id
   route {
@@ -56,7 +56,7 @@ resource "aws_route_table" "elrr_private_route_table1" {
     nat_gateway_id = aws_nat_gateway.elrr_nat_gateway2.id
   }
   tags = {
-    Name = "elrr_private_route_table1"
+    Name = "elrr_private_route_table"
   }
 }
 
