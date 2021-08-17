@@ -48,7 +48,7 @@ resource "aws_route_table" "elrr_private_route_table1" {
   provider = aws
   vpc_id   = aws_vpc.elrr_vpc.id
   route {
-    cidr_block = "10.0.2.0/24"
+    cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.elrr_nat_gateway1.id
   }
   tags = {
@@ -61,7 +61,7 @@ resource "aws_route_table" "elrr_private_route_table2" {
   provider = aws
   vpc_id   = aws_vpc.elrr_vpc.id
   route {
-    cidr_block = "10.0.12.0/24"
+    cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.elrr_nat_gateway2.id
   }
   tags = {
