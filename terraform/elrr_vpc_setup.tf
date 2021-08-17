@@ -81,12 +81,12 @@ resource "aws_route_table" "elrr_private_route_table2" {
 
 resource "aws_route_table_association" "elrr_private_rt1" {
   subnet_id      = aws_subnet.elrr_private_subnet_1.id
-  route_table_id = aws_route_table.elrr_private_route_table.id
+  route_table_id = aws_route_table.elrr_private_route_table1.id
 }
 
 resource "aws_route_table_association" "elrr_private_rt2" {
   subnet_id      = aws_subnet.elrr_private_subnet_2.id
-  route_table_id = aws_route_table.elrr_private_route_table.id
+  route_table_id = aws_route_table.elrr_private_route_table2.id
 }
 
 resource "aws_eip" "elrr_nat_gw_eip1" {
