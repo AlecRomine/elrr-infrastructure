@@ -4,7 +4,7 @@ resource "aws_instance" "elrr_kafka" {
   key_name      = aws_key_pair.elrr_private.key_name
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   subnet_id = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
@@ -43,7 +43,7 @@ resource "aws_instance" "elrr_zookeeper" {
   key_name      = aws_key_pair.elrr_private.key_name
   ami           = "ami-0b9064170e32bde34"
   instance_type = "t2.medium"
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   subnet_id = aws_subnet.elrr_private_subnet_1.id
 
   tags = {
