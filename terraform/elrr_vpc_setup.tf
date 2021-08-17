@@ -62,7 +62,7 @@ resource "aws_route_table" "elrr_private_route_table" {
     cidr_block = "10.0.2.0/24"
     nat_gateway_id = aws_nat_gateway.elrr_nat_gateway1.id
   },
-  route {
+  {
     cidr_block = "10.0.12.0/24"
     nat_gateway_id = aws_nat_gateway.elrr_nat_gateway2.id
   }
