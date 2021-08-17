@@ -115,7 +115,7 @@ resource "aws_nat_gateway" "elrr_nat_gateway1" {
 
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
-  depends_on = [aws_nat_gateway.elrr_nat_gateway1]
+  depends_on = [aws_internet_gateway.elrr_igw]
 }
 
 resource "aws_nat_gateway" "elrr_nat_gateway2" {
@@ -128,7 +128,7 @@ resource "aws_nat_gateway" "elrr_nat_gateway2" {
 
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
-  depends_on = [aws_nat_gateway.elrr_nat_gateway2]
+  depends_on = [aws_internet_gateway.elrr_igw]
 }
 
 # Create subnet in us-east-2
