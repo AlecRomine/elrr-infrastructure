@@ -57,16 +57,7 @@ resource "aws_route_table_association" "elrr_public_rt2" {
 resource "aws_route_table" "elrr_private_route_table" {
   provider = aws
   vpc_id   = aws_vpc.elrr_vpc.id
-  route = [
-  {
-    cidr_block = "10.0.2.0/24"
-    nat_gateway_id = aws_nat_gateway.elrr_nat_gateway1.id
-  },
-  {
-    cidr_block = "10.0.12.0/24"
-    nat_gateway_id = aws_nat_gateway.elrr_nat_gateway2.id
-  }
-]
+  route = []
   tags = {
     Name = "elrr_private_route_table"
   }
