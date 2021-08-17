@@ -54,27 +54,30 @@ resource "aws_route_table_association" "elrr_public_rt2" {
 }
 
 # Create private route table 1 in us-east-2
-resource "aws_route_table" "elrr_private_route_table" {
+resource "aws_route_table" "elrr_private_route_table1" {
   provider = aws
   vpc_id   = aws_vpc.elrr_vpc.id
-  route = []
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.elrr_nat_gateway1.id
+  }
   tags = {
-    Name = "elrr_private_route_table"
+    Name = "elrr_private_route_table1"
   }
 }
 
 # Create private route table 2 in us-east-2
-#resource "aws_route_table" "elrr_private_route_table2" {
-#  provider = aws
-#  vpc_id   = aws_vpc.elrr_vpc.id
-#  route {
-#    cidr_block = "0.0.0.0/0"
-#    nat_gateway_id = aws_nat_gateway.elrr_nat_gateway2.id
-#  }
-#  tags = {
-#    Name = "elrr_private_route_table2"
-#  }
-#}
+resource "aws_route_table" "elrr_private_route_table2" {
+  provider = aws
+  vpc_id   = aws_vpc.elrr_vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.elrr_nat_gateway2.id
+  }
+  tags = {
+    Name = "elrr_private_route_table2"
+  }
+}
 
 resource "aws_route_table_association" "elrr_private_rt1" {
   subnet_id      = aws_subnet.elrr_private_subnet_1.id
@@ -112,7 +115,7 @@ resource "aws_nat_gateway" "elrr_nat_gateway1" {
 
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
-  depends_on = [aws_nat_gateway.elrr_nat_gateway1]
+  depends_on = [aws_internet_gateway.elrr_igw]
 }
 
 resource "aws_nat_gateway" "elrr_nat_gateway2" {
@@ -125,7 +128,7 @@ resource "aws_nat_gateway" "elrr_nat_gateway2" {
 
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
-  depends_on = [aws_nat_gateway.elrr_nat_gateway2]
+  depends_on = [aws_internet_gateway.elrr_igw]
 }
 
 # Create subnet in us-east-2
@@ -164,7 +167,7 @@ resource "aws_subnet" "elrr_private_subnet_1" {
   }
 }
 
-# Create subnet in us-east-2
+ Create subnet in us-east-2
 resource "aws_subnet" "elrr_private_subnet_2" {
   provider          = aws
   availability_zone = element(data.aws_availability_zones.elrr-azs.names, 3)

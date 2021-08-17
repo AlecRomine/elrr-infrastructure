@@ -586,3 +586,29 @@ resource "aws_security_group" "elrr_jenkins_ssh_sg" {
     Name = "elrr_jenkins_ssh_sg"
   }
 }
+
+# security group to allow SSH inbound connection
+resource "aws_security_group" "elrr_bastion_sg" {
+  name        = "elrr_bastion_sg"
+  description = "Allow TLS inbound traffic on port 22"
+  vpc_id      = aws_vpc.elrr_vpc.id
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.elrr_vpc.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "elrr_bastion_sg"
+  }
+}
