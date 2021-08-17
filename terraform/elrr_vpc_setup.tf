@@ -43,6 +43,16 @@ resource "aws_route_table" "elrr_public_route_table" {
   }
 }
 
+resource "aws_route_table_association" "elrr_public_rt1" {
+  subnet_id      = aws_subnet.elrr_public_subnet_1.id
+  route_table_id = aws_route_table.elrr_public_route_table.id
+}
+
+resource "aws_route_table_association" "elrr_public_rt2" {
+  subnet_id      = aws_subnet.elrr_public_subnet_2.id
+  route_table_id = aws_route_table.elrr_public_route_table.id
+}
+
 # Create private route table 1 in us-east-2
 resource "aws_route_table" "elrr_private_route_table" {
   provider = aws
