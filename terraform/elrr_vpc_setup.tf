@@ -107,7 +107,7 @@ resource "aws_eip" "elrr_nat_gw_eip2" {
 
 resource "aws_nat_gateway" "elrr_nat_gateway1" {
   allocation_id = aws_eip.elrr_nat_gw_eip1.id
-  subnet_id     = aws_subnet.elrr_private_subnet_1.id
+  subnet_id     = aws_subnet.elrr_public_subnet_1.id
 
   tags = {
     Name = "elrr_nat_gateway1"
@@ -120,7 +120,7 @@ resource "aws_nat_gateway" "elrr_nat_gateway1" {
 
 resource "aws_nat_gateway" "elrr_nat_gateway2" {
   allocation_id = aws_eip.elrr_nat_gw_eip2.id
-  subnet_id     = aws_subnet.elrr_private_subnet_2.id
+  subnet_id     = aws_subnet.elrr_public_subnet_2.id
 
   tags = {
     Name = "elrr_nat_gateway2"
