@@ -12,7 +12,7 @@ Navigate to the `src` folder and select the component you wish to configure. At 
 - xAPI Gateway
 * [Datasim](https://github.com/US-ELRR/elrr-infrastructure/tree/main/src/datasim)
 * [Jenkins](https://github.com/US-ELRR/elrr-infrastructure/blob/main/src/jenkins/README.md)
-* [Postgres](https://github.com/US-ELRR/elrr-infrastructure/blob/main/src/jenkins/README.md)
+* [Postgres](https://github.com/US-ELRR/elrr-infrastructure/blob/main/src/postgres/README.md)
 * [Terraform](https://github.com/US-ELRR/elrr-infrastructure/blob/main/src/terraform/README.md)
 * [Kafka-Zookeeper](https://github.com/US-ELRR/elrr-infrastructure/blob/main/src/kafka-zookeeper/README.md)
 * [Kubernetes](https://github.com/US-ELRR/elrr-infrastructure/blob/main/src/kubernetes/README.md)
