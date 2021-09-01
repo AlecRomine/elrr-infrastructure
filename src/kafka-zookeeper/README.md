@@ -44,11 +44,12 @@ sudo systemctl status firewalld.service
 ```
 
 # Disable RAM Swap
+```console
 sudo sysctl vm.swappiness=1
 
 Make it persistent
 echo 'vm.swappiness=1' | sudo tee --append /etc/sysctl.conf
-
+```
 
 # Allow connections and test connection from bastion host
 ```console
@@ -80,14 +81,17 @@ sudo apt-get install tree -y
 
 ## Generate local ssh keys on your OS
 Establish your ssh connection with git and add id_rsa.pub to git settings or copy an existing one
-1. `Create keys from the cli: ssh-keygen -t rsa -b 4096 -C "name@adress.com"`
-1. `Copy the id_rsa.pub into git ssh settings`
-
+```console
+Create keys from the cli: ssh-keygen -t rsa -b 4096 -C "name@adress.com"
+Copy the id_rsa.pub into git ssh settings
+```
 ## Pull repo from github
-1. `git clone git@github.com:US-ELRR/elrr-infrastructure.git`
-1. ` cd elrr-infrastructure/src/kafka-zookeeper/`
-1. Modify `.env` and set `KAFKA_HOST` to the resolvable network path for your cluster - this can be a domain name or an IP.
-1. `sudo ./install-reqs.sh`
+```console
+git clone git@github.com:US-ELRR/elrr-infrastructure.git
+cd elrr-infrastructure/src/kafka-zookeeper/
+Modify .env and set KAFKA_HOST to the resolvable network path for your cluster - this can be a domain name or an IP.
+sudo ./install-reqs.sh
+```
 
 Post installaion steps:
 ```console
@@ -97,14 +101,16 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo systemctl enable docker
 sudo systemctl status docker
 ```
-Continue installation...
-1. `sudo docker-compose up -d --build`
-1. `sudo docker logs -f kafka_1`, then wait until the text stops
-1. `sudo ./export-topics.sh`
-1. `docker exec kafka_1 kafka-topics --list --zookeeper localhost:12181`
-1. `docker exec kafka_2 kafka-topics --list --zookeeper localhost:12181`
-1. `docker exec kafka_3 kafka-topics --list --zookeeper localhost:12181`
 
+Continue installation...
+```console
+sudo docker-compose up -d --build
+sudo docker logs -f kafka_1, then wait until the text stops
+sudo ./export-topics.sh
+docker exec kafka_1 kafka-topics --list --zookeeper localhost:12181
+docker exec kafka_2 kafka-topics --list --zookeeper localhost:12181
+docker exec kafka_3 kafka-topics --list --zookeeper localhost:12181
+```
 
 ## Topics
 Each topic on the cluster exists for a reason, but we also have topics for testing purposes.  By default, there are 3 topics you can use to test out messages and demo producers / consumers: `test-1`, `test-2`, and `test-3`.  
