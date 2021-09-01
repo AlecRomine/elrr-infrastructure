@@ -44,17 +44,11 @@ sudo systemctl status firewalld.service
 ```
 
 # Disable RAM Swap
-ubuntu@kafka-zookeeper:~$ sudo sysctl vm.swappiness
-vm.swappiness = 60
-ubuntu@kafka-zookeeper:~$ sudo sysctl vm.swappiness=1
-vm.swappiness = 1
-ubuntu@kafka-zookeeper:~$ sudo sysctl vm.swappiness=1
-vm.swappiness = 1
+sudo sysctl vm.swappiness=1
 
 Make it persistent
 echo 'vm.swappiness=1' | sudo tee --append /etc/sysctl.conf
-ubuntu@kafka-zookeeper:~$ echo 'vm.swappiness=1' | sudo tee --append /etc/sysctl.conf
-vm.swappiness=1
+
 
 # Allow connections and test connection from bastion host
 ```console
