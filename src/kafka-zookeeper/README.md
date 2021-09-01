@@ -43,6 +43,19 @@ sudo systemctl enable firewalld.service
 sudo systemctl status firewalld.service
 ```
 
+# Disable RAM Swap
+ubuntu@kafka-zookeeper:~$ sudo sysctl vm.swappiness
+vm.swappiness = 60
+ubuntu@kafka-zookeeper:~$ sudo sysctl vm.swappiness=1
+vm.swappiness = 1
+ubuntu@kafka-zookeeper:~$ sudo sysctl vm.swappiness=1
+vm.swappiness = 1
+
+Make it persistent
+echo 'vm.swappiness=1' | sudo tee --append /etc/sysctl.conf
+ubuntu@kafka-zookeeper:~$ echo 'vm.swappiness=1' | sudo tee --append /etc/sysctl.conf
+vm.swappiness=1
+
 # Allow connections and test connection from bastion host
 ```console
 sudo firewall-cmd --zone=public --add-port=ssh/tcp --permanent;
@@ -94,6 +107,10 @@ Continue installation...
 1. `sudo docker-compose up -d --build`
 1. `sudo docker logs -f kafka_1`, then wait until the text stops
 1. `sudo ./export-topics.sh`
+1. `docker exec kafka_1 kafka-topics --list --zookeeper localhost:12181`
+1. `docker exec kafka_2 kafka-topics --list --zookeeper localhost:12181`
+1. `docker exec kafka_3 kafka-topics --list --zookeeper localhost:12181`
+
 
 ## Topics
 Each topic on the cluster exists for a reason, but we also have topics for testing purposes.  By default, there are 3 topics you can use to test out messages and demo producers / consumers: `test-1`, `test-2`, and `test-3`.  
